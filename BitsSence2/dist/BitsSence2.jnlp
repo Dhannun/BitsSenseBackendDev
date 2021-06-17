@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="BitsSence2.jnlp">
+  <information>
+    <title>BitsSence2</title>
+    <vendor>Wecom</vendor>
+    <description>null</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="BitsSence2.jar" size="28290" download="eager" />
+    <jar href="lib\activation.jar" size="69409" download="eager" />
+    <jar href="lib\derby.jar" size="3224708" download="eager" />
+    <jar href="lib\derbyclient.jar" size="590087" download="eager" />
+    <jar href="lib\javax.mail.jar" size="659033" download="eager" />
+    <jar href="lib\jfoenix.jar" size="2708772" download="eager" />
+  </resources>
+  <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="BitsSence2" >
+    <param name="requiredFXVersion" value="8.0+"/>
+  </applet-desc>
+  <jfx:javafx-desc  width="800" height="600" main-class="ui.login.LoginLoader"  name="BitsSence2" />
+  <update check="always"/>
+</jnlp>

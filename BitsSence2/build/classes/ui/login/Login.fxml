@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="495.0" prefWidth="370.0" style="-fx-background-color: #81D4FA;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.login.LoginController">
+   <children>
+      <VBox layoutY="182.0" prefHeight="314.0" prefWidth="374.0">
+         <children>
+            <JFXTextField fx:id="email" focusColor="BLACK" labelFloat="true" promptText="Email/Phone Number" unFocusColor="#88d3e8">
+               <VBox.margin>
+                  <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+               </VBox.margin>
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </JFXTextField>
+            <JFXPasswordField fx:id="password" focusColor="BLACK" labelFloat="true" promptText="Password" unFocusColor="#88d3e8">
+               <VBox.margin>
+                  <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+               </VBox.margin>
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </JFXPasswordField>
+            <HBox prefHeight="52.0" prefWidth="374.0">
+               <VBox.margin>
+                  <Insets top="15.0" />
+               </VBox.margin>
+               <children>
+                  <JFXButton fx:id="login" onAction="#handleLogin" prefHeight="100.0" prefWidth="300.0" style="-fx-background-color: #01579B;" text="Login" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+                  <JFXButton fx:id="register" onAction="#handleRegister" prefHeight="100.0" prefWidth="300.0" style="-fx-background-color: #01579B;" text="Register" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+               </children>
+            </HBox>
+            <AnchorPane prefHeight="93.0" prefWidth="374.0">
+               <children>
+                  <JFXCheckBox checkedColor="#0350f5" layoutX="41.0" layoutY="35.0" text=" " />
+                  <Text layoutX="70.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="I Agreed with the Terms and Conditions">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Text>
+               </children>
+            </AnchorPane>
+         </children>
+      </VBox>
+      <AnchorPane prefHeight="197.0" prefWidth="374.0">
+         <children>
+            <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="137.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../icons/logo.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

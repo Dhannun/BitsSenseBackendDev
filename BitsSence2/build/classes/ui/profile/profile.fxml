@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="457.0" prefWidth="374.0" style="-fx-background-color: #81D4FA;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.profile.ProfileController">
+   <children>
+      <VBox layoutY="168.0" prefHeight="305.0" prefWidth="374.0">
+         <children>
+            <JFXTextField fx:id="surnameUpdate" focusColor="BLACK" labelFloat="true" promptText="Surname" unFocusColor="#88d3e8">
+               <VBox.margin>
+                  <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+               </VBox.margin>
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </JFXTextField>
+            <JFXTextField fx:id="firstNameUpdate" focusColor="BLACK" labelFloat="true" layoutX="35.0" layoutY="35.0" promptText="First Name" unFocusColor="#88d3e8">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+               </VBox.margin>
+            </JFXTextField>
+            <JFXDatePicker fx:id="DOBUpdate" promptText="Date of Birth">
+               <VBox.margin>
+                  <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+               </VBox.margin>
+            </JFXDatePicker>
+            <HBox prefHeight="52.0" prefWidth="374.0">
+               <VBox.margin>
+                  <Insets top="15.0" />
+               </VBox.margin>
+               <children>
+                  <JFXButton fx:id="update" onAction="#handleUpdate" prefHeight="100.0" prefWidth="300.0" style="-fx-background-color: #01579B;" text="Update" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+                  <JFXButton fx:id="cancel" onAction="#handleCancel" prefHeight="100.0" prefWidth="300.0" style="-fx-background-color: #01579B;" text="Cancel" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <AnchorPane prefHeight="197.0" prefWidth="374.0">
+         <children>
+            <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="137.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../icons/logo.png" />
+               </image>
+            </ImageView>
+            <JFXButton fx:id="logout" layoutX="14.0" layoutY="20.0" onAction="#handleLogout" prefHeight="31.0" prefWidth="28.0" text=" ">
+               <graphic>
+                  <ImageView fitHeight="37.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../icons/logout.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXButton>
+            <JFXButton layoutX="273.0" layoutY="28.0" onAction="#loadProfile" style="-fx-background-color: indigo;" text="Load Profile" textFill="#fcfcfc">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="596.0" prefWidth="374.0" style="-fx-background-color: #81D4FA;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.registration.RegisterController">
+   <children>
+      <VBox layoutY="90.0" prefHeight="391.0" prefWidth="374.0">
+         <children>
+            <JFXTextField fx:id="surname" focusColor="BLACK" labelFloat="true" promptText="Surname" unFocusColor="#88d3e8">
+               <VBox.margin>
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="5.0" />
+               </VBox.margin>
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </JFXTextField>
+            <JFXTextField fx:id="first_name" focusColor="BLACK" labelFloat="true" layoutX="35.0" layoutY="35.0" promptText="First Name" unFocusColor="#88d3e8">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+               </VBox.margin>
+            </JFXTextField>
+            <JFXTextField fx:id="email" focusColor="BLACK" labelFloat="true" layoutX="10.0" layoutY="91.0" promptText="Email" unFocusColor="#88d3e8">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+               </VBox.margin>
+            </JFXTextField>
+            <JFXTextField fx:id="phone" focusColor="BLACK" labelFloat="true" layoutX="35.0" layoutY="35.0" promptText="Phone Number" unFocusColor="#88d3e8">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+               </VBox.margin>
+            </JFXTextField>
+            <JFXDatePicker fx:id="dob" promptText="Date of Birth">
+               <VBox.margin>
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+               </VBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXDatePicker>
+            <JFXTextField fx:id="bvn" focusColor="BLACK" labelFloat="true" layoutX="10.0" layoutY="91.0" promptText="BVN" unFocusColor="#88d3e8">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+               </VBox.margin>
+            </JFXTextField>
+            <Separator prefWidth="200.0" />
+            <JFXPasswordField fx:id="password" focusColor="BLACK" labelFloat="true" promptText="Password" unFocusColor="#88d3e8">
+               <VBox.margin>
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+               </VBox.margin>
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </JFXPasswordField>
+            <JFXPasswordField fx:id="confirm_password" focusColor="BLACK" labelFloat="true" layoutX="25.0" layoutY="439.0" promptText="Confirm Password" unFocusColor="#88d3e8">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+               </VBox.margin>
+            </JFXPasswordField>
+            <HBox prefHeight="52.0" prefWidth="374.0">
+               <children>
+                  <JFXButton fx:id="register" onAction="#handleRegister" prefHeight="100.0" prefWidth="300.0" style="-fx-background-color: #01579B;" text="Register" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+                  <JFXButton fx:id="sign_in" onAction="#handleSignIn" prefHeight="100.0" prefWidth="300.0" style="-fx-background-color: #01579B;" text="Login" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <AnchorPane prefHeight="94.0" prefWidth="374.0">
+         <children>
+            <ImageView fitHeight="67.0" fitWidth="80.0" layoutX="154.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../icons/logo.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
