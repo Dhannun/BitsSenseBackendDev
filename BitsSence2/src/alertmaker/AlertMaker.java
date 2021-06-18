@@ -40,7 +40,7 @@ public class AlertMaker {
         alert.setHeaderText(null);
         alert.setContentText(content);
         
-        alert.show();
+        alert.showAndWait();
     }
     
     public static Optional<ButtonType> showConfirm(String title, String content) {

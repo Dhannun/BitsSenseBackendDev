@@ -81,7 +81,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
-            <JFXButton layoutX="273.0" layoutY="28.0" onAction="#loadProfile" style="-fx-background-color: indigo;" text="Load Profile" textFill="#fcfcfc">
+            <JFXButton layoutX="273.0" layoutY="28.0" onAction="#viewProfile" style="-fx-background-color: indigo;" text="View Profile" textFill="#fcfcfc">
                <font>
                   <Font size="13.0" />
                </font>

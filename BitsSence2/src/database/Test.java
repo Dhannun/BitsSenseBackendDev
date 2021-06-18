@@ -5,7 +5,6 @@
  */
 package database;
 
-import alertmaker.AlertMaker;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
@@ -20,40 +19,42 @@ import java.util.logging.Logger;
  *
  * @author Wecom
  */
-public class DatabaseHandler {
-    
+public class Test {
+
     private static String email;
-    private static DatabaseHandler handler = null;
+    private static Test handler = null;
     private static Connection connection;
     private static Statement statement;
     private static PreparedStatement preparedStatement;
     private static final String DB_URL = "jdbc:derby:database;create=true";
-    
-    private DatabaseHandler() {
+
+    private Test() {
         createConnection();
         createTableUsers();
     }
-    
-    public static DatabaseHandler getIstance() {
+
+    public static Test getIstance() {
         if (handler == null) {
-            handler = new DatabaseHandler();
+            handler = new Test();
         }
         return handler;
     }
-    
+
     private void createConnection() {
         try {
             Class.forName("org.apache.derby.jdbc.EmbeddedDriver").newInstance();
             connection = DriverManager.getConnection(DB_URL);
 //            JOptionPane.showMessageDialog(null, "Connected");
-            AlertMaker.showInformation("Connection", "Database Created and Connected");
+            System.out.println("Database Created and Connected");
+//            AlertMaker.showInformation("Connection", "Database Connected");
         } catch (Exception ex) {
 //            JOptionPane.showMessageDialog(null, "Can't connect to database!");
-            AlertMaker.showError("Connection", "Can't connect to database!");
+            System.err.println("Can't Connect to the Database, Another Instance Might be Runnung");
+//            AlertMaker.showError("Connection", "Can't connect to database!");
             System.exit(0);
         }
     }
-    
+
     private void createTableUsers() {
         final String TABLE_NAME = "USERS";
         try {
@@ -61,8 +62,9 @@ public class DatabaseHandler {
             ResultSet resultSet = metaData.getTables(null, null, TABLE_NAME.toUpperCase(), null);
 
             if (resultSet.next()) {
-                AlertMaker.showInformation("Connection", "Table " + TABLE_NAME + " already exist");
+//                AlertMaker.showInformation("Connection", "Table " + TABLE_NAME + " already exist");
 //                JOptionPane.showMessageDialog(null, "Table " + TABLE_NAME + " already exist");
+                System.out.println("Table " + TABLE_NAME + " already exist");
 //                System.out.println("Table " + TABLE_NAME + " already exist");
             } else {
                 statement = connection.createStatement();
@@ -76,28 +78,30 @@ public class DatabaseHandler {
                         + "password VARCHAR(120) NOT NULL,\n"
                         + "status VARCHAR(10) NOT NULL"
                         + ")";
-                
+
                 try {
                     statement.execute(query);
-                    AlertMaker.showInformation("Connection", "Table " + TABLE_NAME + " created successful! :-)");
-//                    JOptionPane.showMessageDialog(null, "Table " + TABLE_NAME + " created successful! :-)");                    
+//                    AlertMaker.showInformation("Connection", "Table " + TABLE_NAME + " created successful! :-)");
+//                    JOptionPane.showMessageDialog(null, "Table " + TABLE_NAME + " created successful! :-)");
+                    System.err.println("Table " + TABLE_NAME + " created successful! :-)");
                 } catch (Exception e) {
-                    AlertMaker.showInformation("Connection", "The table query is not executed. x :-(\n"+e.getMessage());
+//                    AlertMaker.showInformation("Connection", "The table query is not executed. x :-(\n"+e.getMessage());
 //                    JOptionPane.showMessageDialog(null, "The table query is not executed. x :-(");
+                    System.err.println("The table query is not executed. x :-(");
 //                    System.err.println(e.getMessage());
                 }
-                
+
             }
         } catch (Exception ex) {
             System.err.println(ex.getMessage());
         }
     }
-    
+
     public static Boolean execAction(String query, String[] data) {
         try {
             preparedStatement = connection.prepareStatement(query);
             for (int i = 0; i < data.length; i++) {
-                preparedStatement.setString(i+1, data[i]);
+                preparedStatement.setString(i + 1, data[i]);
             }
             preparedStatement.execute();
             preparedStatement.close();
@@ -125,13 +129,12 @@ public class DatabaseHandler {
     }
 
     public static void setEmail(String email) {
-        DatabaseHandler.email = email;
+        Test.email = email;
     }
-    
-    
+
     public static void main(String[] args) {
-            System.out.println("Start");
-            new DatabaseHandler();
+        System.out.println("Start");
+        new Test();
         try {
             String qu = "SELECT * FROM USERS";
             statement = connection.createStatement();
@@ -148,8 +151,8 @@ public class DatabaseHandler {
                 String bvn = rs.getString("bvn");
                 String password = rs.getString("password");
                 String otp = rs.getString("status");
-                
-                System.out.println("Email: " +email+"\nSurname: " +surname+"\nFirst Name: "+fname+"\nPhone: "+phone+"\nDOB: "+dob+"\nbvn: "+bvn+"\nPassword: "+password+"\nOTP: "+otp);
+
+                System.out.println("Email: " + email + "\nSurname: " + surname + "\nFirst Name: " + fname + "\nPhone: " + phone + "\nDOB: " + dob + "\nbvn: " + bvn + "\nPassword: " + password + "\nOTP: " + otp);
             }
 //        DatabaseHandler.getIstance();
         } catch (SQLException ex) {

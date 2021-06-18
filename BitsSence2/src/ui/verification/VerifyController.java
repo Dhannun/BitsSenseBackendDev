@@ -40,7 +40,7 @@ public class VerifyController implements Initializable {
     private JFXButton resendOTP;
     @FXML
     private JFXButton verify;
-    
+
     private String OTP, name;
 
     /**
@@ -49,12 +49,12 @@ public class VerifyController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        
-    }    
+
+    }
 
     @FXML
     private void handleResendOTP(ActionEvent event) {
-        String qu = "SELECT * FROM USERS WHERE email='"+DatabaseHandler.getEmail()+"'";
+        String qu = "SELECT * FROM USERS WHERE email='" + DatabaseHandler.getEmail() + "'";
         ResultSet rs = DatabaseHandler.execQuery(qu);
 
         try {
@@ -67,64 +67,61 @@ public class VerifyController implements Initializable {
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
-            
+
 //        opt_text.setText(DatabaseHandler.getEmail());
         System.out.println(DatabaseHandler.getEmail());
     }
 
     @FXML
     private void handleVerification(ActionEvent event) {
-        
+
         if (!"".equals(opt_text.getText())) {
-            String qu = "SELECT * FROM USERS WHERE email='"+DatabaseHandler.getEmail()+"'";
+            String qu = "SELECT * FROM USERS WHERE email='" + DatabaseHandler.getEmail() + "'";
             ResultSet rs = DatabaseHandler.execQuery(qu);
 
             try {
                 while (rs.next()) {
                     OTP = rs.getString("status");
-                    name = rs.getString("surname") +" "+rs.getString("first_name");
+                    name = rs.getString("surname") + " " + rs.getString("first_name");
                 }
             } catch (SQLException ex) {
                 System.err.println(ex.getMessage());
             }
 
-            System.out.println("OTP: "+OTP);
-            System.out.println("Name: "+name);
+            System.out.println("OTP: " + OTP);
+            System.out.println("Name: " + name);
 
             if (opt_text.getText().equals(OTP)) {
-                
+
                 String query = "UPDATE USERS SET status = \'verified\' WHERE email = ?";
-                
+
                 String[] data = {DatabaseHandler.getEmail()};
-                
+
                 if (DatabaseHandler.execAction(query, data)) {
-                    AlertMaker.showInformation("Verification", "VERIFIED\n"+name+", Your Details are now Virified");
+                    AlertMaker.showInformation("Verification", "VERIFIED\n" + name + ", Your Details are now Virified");
 
                     try {
-                        Parent parent = FXMLLoader.load(getClass().getResource("/ui/profile/profile.fxml"));
+                        Parent parent = FXMLLoader.load(getClass().getResource("/ui/login/Login.fxml"));
                         Stage stage = new Stage(StageStyle.DECORATED);
                         stage.setScene(new Scene(parent));
-                        stage.setTitle("Update Profile");
+                        stage.setTitle("Login Form");
                         stage.show();
 
                         ((Stage) verify.getScene().getWindow()).close();
                     } catch (IOException ex) {
                         Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                }else{
+                } else {
                     AlertMaker.showError("Verification", "There is a Probelm in Updating Your Status");
                 }
-            }else{
+            } else {
                 AlertMaker.showError("Verification", "Oops! Invalid Verification Code.\n Please Try Again");
             }
         } else {
             AlertMaker.showError("Verification", "Empty Input");
         }
-        
-        
+
         // After verified
-        
-        
     }
-    
+
 }

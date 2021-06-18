@@ -8,8 +8,9 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="BitsSence2.jar" size="28290" download="eager" />
+    <jar href="BitsSence2.jar" size="37098" download="eager" />
     <jar href="lib\activation.jar" size="69409" download="eager" />
+    <jar href="lib\commons-codec.jar" size="335042" download="eager" />
     <jar href="lib\derby.jar" size="3224708" download="eager" />
     <jar href="lib\derbyclient.jar" size="590087" download="eager" />
     <jar href="lib\javax.mail.jar" size="659033" download="eager" />

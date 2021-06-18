@@ -25,6 +25,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.apache.commons.codec.digest.DigestUtils;
+import ui.profile.ProfileController;
 
 /**
  *
@@ -50,102 +52,107 @@ public class LoginController implements Initializable {
     @FXML
     private void handleLogin(ActionEvent event) {
 
-//        if ("".equals(email.getText()) || "".equals(password.getText())) {
-//            AlertMaker.showError("Login", "Incorrect Password");
-//        }else{
         try {
             String qu = "SELECT * FROM USERS WHERE email='" + email.getText() + "'";
             String qu2 = "SELECT * FROM USERS WHERE phone='" + email.getText() + "'";
             ResultSet rs = DatabaseHandler.execQuery(qu);
             ResultSet rs2 = DatabaseHandler.execQuery(qu2);
             if (rs.next()) {
-                if (rs.getString("password").equals(password.getText())) {
+                if (rs.getString("password").equals(DigestUtils.sha1Hex(password.getText()))) {
 //                    email.setText(rs.getString("status"));
                     if ("verified".equals(rs.getString("status"))) {
                         AlertMaker.showInformation("Login", "Valid Details");
 
-                        Parent parent = FXMLLoader.load(getClass().getResource("/ui/profile/profile.fxml"));
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/profile/profile.fxml"));
+                        Parent parent = loader.load();
+
                         Stage stage = new Stage(StageStyle.DECORATED);
                         stage.setScene(new Scene(parent));
                         stage.setTitle("Update Profile");
+
+                        ProfileController controller = loader.getController();
+                        controller.setDOBUpdate(rs.getString("dob"));
+                        controller.setFirstNameUpdate(rs.getString("first_name"));
+                        controller.setSurnameUpdate(rs.getString("surname"));
+
                         DatabaseHandler.setEmail(email.getText());
+
                         stage.show();
 
                         ((Stage) login.getScene().getWindow()).close();
 
                     } else {
                         AlertMaker.showError("Login", "Your Account is not yet Verrified!\nPlease Check your email for your Verification Code");
+
                         Parent parent = FXMLLoader.load(getClass().getResource("/ui/verification/verify.fxml"));
                         Stage stage = new Stage(StageStyle.DECORATED);
                         stage.setScene(new Scene(parent));
                         stage.setTitle("Verification Form");
                         DatabaseHandler.setEmail(email.getText());
                         stage.show();
+
+                        ((Stage) login.getScene().getWindow()).close();
                     }
                 } else {
                     AlertMaker.showError("Login", "Incorrect Password");
                 }
-            }else if(rs2.next()){
-                if (rs2.getString("password").equals(password.getText())) {
+            } else if (rs2.next()) {
+                if (rs2.getString("password").equals(DigestUtils.sha1Hex(password.getText()))) {
 //                    email.setText(rs.getString("status"));
                     if ("verified".equals(rs2.getString("status"))) {
                         AlertMaker.showInformation("Login", "Valid Details");
 
-                        Parent parent = FXMLLoader.load(getClass().getResource("/ui/profile/profile.fxml"));
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/profile/profile.fxml"));
+                        Parent parent = loader.load();
+
                         Stage stage = new Stage(StageStyle.DECORATED);
                         stage.setScene(new Scene(parent));
                         stage.setTitle("Update Profile");
-                        DatabaseHandler.setEmail(email.getText());
+
+                        ProfileController controller = loader.getController();
+                        controller.setDOBUpdate(rs2.getString("dob"));
+                        controller.setFirstNameUpdate(rs2.getString("first_name"));
+                        controller.setSurnameUpdate(rs2.getString("surname"));
+
+                        DatabaseHandler.setEmail(rs2.getString("email"));
                         stage.show();
 
                         ((Stage) login.getScene().getWindow()).close();
 
                     } else {
                         AlertMaker.showError("Login", "Your Account is not yet Verrified!\nPlease Check your email for your Verification Code");
+
                         Parent parent = FXMLLoader.load(getClass().getResource("/ui/verification/verify.fxml"));
                         Stage stage = new Stage(StageStyle.DECORATED);
                         stage.setScene(new Scene(parent));
                         stage.setTitle("Verification Form");
                         DatabaseHandler.setEmail(rs2.getString("email"));
                         stage.show();
+
+                        ((Stage) login.getScene().getWindow()).close();
                     }
                 } else {
                     AlertMaker.showError("Login", "Incorrect Password");
                 }
             } else {
-                AlertMaker.showError("Login", "Invalid Username");
+                AlertMaker.showError("Login", "Invalid Email or Phone Number");
             }
         } catch (SQLException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
-//        }
-        //after auth
 
-//        try {
-//            Parent parent = FXMLLoader.load(getClass().getResource("/ui/profile/profile.fxml"));
-//            Stage stage = new Stage(StageStyle.DECORATED);
-//            stage.setScene(new Scene(parent));
-//            stage.setTitle("Update Profile");
-//            stage.show();
-//
-//            ((Stage) login.getScene().getWindow()).close();
-//        } catch (IOException ex) {
-//            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-//        }
     }
 
     @FXML
     private void handleRegister(ActionEvent event) {
-        System.out.println("Hello World");
-
 //        AlertMaker.showInformation("Alert Title", "ALert Content");
         try {
             Parent parent = FXMLLoader.load(getClass().getResource("/ui/registration/register.fxml"));
             Stage stage = new Stage(StageStyle.DECORATED);
             stage.setScene(new Scene(parent));
-            stage.setTitle("Change Manager Dashboard");
+            stage.setTitle("Registration Form");
             stage.show();
 
             ((Stage) login.getScene().getWindow()).close();
@@ -153,10 +160,19 @@ public class LoginController implements Initializable {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-//        Alert al = new Alert(Alert.AlertType.INFORMATION);
-//        al.setTitle("Alert Title");
-//        al.setContentText("Alert Content");
-//        al.show();
+    }
+
+    @FXML
+    private void handleTemsAndCondition(ActionEvent event) {
+        try {
+            Parent parent = FXMLLoader.load(getClass().getResource("/ui/termandconditions/termandconditions.fxml"));
+            Stage stage = new Stage(StageStyle.DECORATED);
+            stage.setScene(new Scene(parent));
+            stage.setTitle("Terms and Conditions");
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }

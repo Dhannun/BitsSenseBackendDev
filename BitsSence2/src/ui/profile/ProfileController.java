@@ -55,18 +55,32 @@ public class ProfileController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        
-    }    
 
+    }
+
+    public void setSurnameUpdate(String newSurname) {
+//        surnameUpdate.setText(newSurname);
+        surnameUpdate.setText(newSurname);
+    }
+
+    public void setFirstNameUpdate(String newFirstName) {
+        firstNameUpdate.setText(newFirstName);
+//        this.firstNameUpdate = firstNameUpdate;
+    }
+
+    public void setDOBUpdate(String newDOB) {
+        DOBUpdate.setValue(LocalDate.parse(newDOB));
+//        this.DOBUpdate = DOBUpdate;
+    }
 
     @FXML
     private void handleLogout(ActionEvent event) {
-        
+
         int action = JOptionPane.showConfirmDialog(null, "You Want to Logout??");
-        
+
         if (action == JOptionPane.YES_OPTION) {
             DatabaseHandler.setEmail(null);
-            
+
             try {
                 Parent parent = FXMLLoader.load(getClass().getResource("/ui/login/Login.fxml"));
                 Stage stage = new Stage(StageStyle.DECORATED);
@@ -79,61 +93,78 @@ public class ProfileController implements Initializable {
                 Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+
     }
-    
-    
 
     @FXML
     private void handleUpdate(ActionEvent event) {
-        
-        String query = "UPDATE USERS SET surname = ?, first_name = ?, dob = ? WHERE email = '"+DatabaseHandler.getEmail()+"'";
+
+        String query = "UPDATE USERS SET surname = ?, first_name = ?, dob = ? WHERE email = '" + DatabaseHandler.getEmail() + "'";
         String[] data = {surnameUpdate.getText(), firstNameUpdate.getText(), DOBUpdate.getValue().toString()};
-        
+
         if (DatabaseHandler.execAction(query, data)) {
             AlertMaker.showInformation("Update Profile", "Profile Update Successful :-)");
             loadData();
         }
-        
-//        System.out.println(DOBUpdate.getValue().toString());
-//DOBUpdate.setValue(LocalDate.parse("2021-03-23"));
-//System.out.println(DOBUpdate.getValue().toString() != "");
-//        DOBUpdate.setValue(LocalDate.parse("", DateTimeFormatter.ofPattern("yyyy-mm-dd")));
+
     }
 
     @FXML
     private void handleCancel(ActionEvent event) {
         int action = JOptionPane.showConfirmDialog(null, "You Want to Close the App??");
-        
+
         if (action == JOptionPane.YES_OPTION) {
             DatabaseHandler.setEmail(null);
             ((Stage) logout.getScene().getWindow()).close();
         }
     }
 
-    @FXML
-    private void loadProfile(ActionEvent event) {
-       loadData();
-    }
-
     private void loadData() {
-         try {
-            String query = "SELECT * FROM USERS WHERE email='"+DatabaseHandler.getEmail()+"'";
+        try {
+            String query = "SELECT * FROM USERS WHERE email='" + DatabaseHandler.getEmail() + "'";
             ResultSet result = DatabaseHandler.execQuery(query);
-            
+
             while (result.next()) {
                 surnameUpdate.setText(result.getString("surname"));
                 firstNameUpdate.setText(result.getString("first_name"));
                 DOBUpdate.setValue(LocalDate.parse(result.getString("dob")));
-                System.out.println("Surname: "+result.getString("surname"));
-                System.out.println("First Name: "+result.getString("first_name"));
-                System.out.println("DOB: "+result.getString("dob"));
+                System.out.println("Surname: " + result.getString("surname"));
+                System.out.println("First Name: " + result.getString("first_name"));
+                System.out.println("DOB: " + result.getString("dob"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(ProfileController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    
-    
+
+    @FXML
+    private void viewProfile(ActionEvent event) {
+        try {
+            String qu = "SELECT * FROM USERS WHERE email='" + DatabaseHandler.getEmail() + "'";
+            ResultSet rs = DatabaseHandler.execQuery(qu);
+            if (rs.next()) {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/profile/setails.fxml"));
+                Parent parent = loader.load();
+
+                Stage stage = new Stage(StageStyle.DECORATED);
+                stage.setScene(new Scene(parent));
+                stage.setTitle("Update Profile");
+
+                SetailsController controller = loader.getController();
+                controller.setDob(rs.getString("dob"));
+                controller.setFullName(rs.getString("surname") + " " + rs.getString("first_name"));
+                controller.setEmail(rs.getString("email"));
+                controller.setPhone(rs.getString("phone"));
+                controller.setPassword(rs.getString("password"));
+                controller.setBvn(rs.getString("bvn"));
+                controller.setStatus(rs.getString("status"));
+
+                stage.show();
+
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(ProfileController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
 }
